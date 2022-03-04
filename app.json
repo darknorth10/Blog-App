@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Activity-3",
-    "slug": "activity-3",
+    "name": "Blog App",
+    "slug": "blog-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jrparreno.activity3"
+      "package": "com.blog.teamAlbus"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
