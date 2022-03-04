@@ -1,4 +1,5 @@
 import { Dimensions, Image, StyleSheet } from 'react-native';
+import { ScreenContainer } from 'react-native-screens';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -7,58 +8,103 @@ import { RootTabScreenProps } from '../types';
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     // Main Div
-    <View style = {{ 
-      flex: 1,
-      backgroundColor: '#011627',
-      alignItems: 'center',
-    }}>
-      
-      <Text style={{
-        textAlign: 'center', color: '#F6F7F8', fontSize: 50, marginTop: '25%'
-      }}> 
-      Log In
-      </Text>
-      
-      {/* Username, Password, Buttons Container*/}
+    <View style = {styles.container}>
+
+      {/* Logo Div */}
+      <View style={{ backgroundColor:'#031328',}} >
+        <Image source ={require('../Photo_1646216742161.png')} 
+        style={{
+          height: 200, 
+          width:200, 
+          backgroundColor:'#031328',
+        }}/>
+        
+      </View>
+
       <View style={{
-         display: "flex",
-         alignItems: 'center',
-         height: '50%',
-         width: '90%',
-         backgroundColor: '#011627',
-         marginTop: '25%',
+        height:'75%',
+        width:'100%',
+        borderRadius: 20,
+        display:'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}>
-
-        <Text style={{
-          backgroundColor: '#F6F7F8', height: '15%', width: '80%',  borderRadius: 20, marginBottom: '10%', fontSize: 21, textAlign: "center", paddingTop: 10, color: '#4E4E4E'
+        <Text style = {{
+          color: '#212121', 
+          fontSize: 25,
+          textAlign:'center', fontWeight: 'bold', letterSpacing:2,
+          padding: 20, 
+          marginBottom: 30
         }}>
-          Username
+          Welcome
         </Text>
-        <Text style={{
-          backgroundColor: '#F6F7F8', height: '15%', width: '80%',  borderRadius: 20, marginBottom: '10%', fontSize: 21, textAlign: "center", paddingTop: 10, color: '#4E4E4E'
-        }}>
-          Password
+        <Text style= {[styles.textfield, styles.elevation]}>
+         Enter username
         </Text>
-
-        <Text style={{
-          backgroundColor: '#2EC4B6', height: '15%', width: '80%',  borderRadius: 10, marginBottom: '5%', fontSize: 21, textAlign: "center", paddingTop: 10
-        }}>
-          Log In
+        <Text style= {[styles.textfield, styles.elevation]}>
+         Enter password
         </Text>
-
-        <Text style={{
-          textAlign: 'center', color: "#F6F7F8", fontSize: 23, fontWeight: "200",
+        <Text style= {[styles.button, styles.elevation]}>
+         Sign in
+        </Text>
+        <Text style = {{
+          color: '#333333', 
+          fontSize: 15,
+          textAlign:'center', fontWeight: 'bold',
+          padding: 20,
         }}>
           or
         </Text>
-        <Text style={{
-          backgroundColor: '#20A4F3', height: '15%', width: '80%',  borderRadius: 10, marginTop: '5%', marginBottom: '10%', fontSize: 21, textAlign: "center", paddingTop: 10
-        }}>
-          Register
+        <Text style= {[styles.button2, styles.elevation, ]}>
+         Register
         </Text>
-
       </View>
     </View>
-    
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#031328',
+    paddingTop:5
+  },
+  
+  textfield: {
+    padding: 10, 
+    textAlign: 'center',
+    color: '#3e3e3e',
+    fontStyle:'italic',
+    letterSpacing:2,
+    backgroundColor: '#E1E1E1',
+    width: '70%',
+    borderBottomWidth: 2,
+    borderBottomColor: '#191919',
+    borderTopLeftRadius:10,
+    borderTopRightRadius:10,
+    marginBottom:30
+  },
+
+  button: {
+    padding: 15, 
+    textAlign: 'center',
+    color: '#212121',
+    backgroundColor: '#04f1e1',
+    width: '70%',
+    borderRadius: 20
+  },
+  button2: {
+    padding: 15, 
+    textAlign: 'center',
+    color: '#212121',
+    backgroundColor: '#fff',
+    width: '70%',
+    borderRadius: 20,
+    borderWidth:1,
+    borderColor: '#031328'
+  },
+  elevation: {
+    elevation: 2,
+    shadowColor: '#080808',
+  }
+});
