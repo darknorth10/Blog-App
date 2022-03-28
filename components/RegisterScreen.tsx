@@ -1,41 +1,90 @@
-import {useState} from 'react';
+import React  from 'react';
 import { View, StyleSheet, Text, Image,  } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Button, TextInput} from 'react-native-paper';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
+
+const RegisterSchema = Yup.object({
+    firstname: Yup.string().required().label("First Name"),
+    lastname: Yup.string().required().label("Last Name"),
+    email: Yup.string().required().email().label("Email"),
+    password: Yup.string().required().min(7).label("Password"),
+    confpassword: Yup.string().required().label("Confirm rPassword").oneOf([Yup.ref('password')], 'Your passwords do not match.')
+});
 
 export default function RegisterScreen() {
 
-    const [FirstName, setFN] = useState("");
-    const [LastName, setLN] = useState("");
-    const [Email, setEmail] = useState("");
-    const [Password, setPW] = useState("");
-    const [ConfirmPassword, setCPW] = useState("");
     return (
-       <PaperProvider>
-        <View style = {styles.LogoContainer}>
-        <Image source ={require ('../Photo_1646216742161.png')} style = {styles.logoimg} />
-         </View>
-         <View style = {styles.RegCon}>
-            <TextInput mode='flat' placeholder='First Name' onChangeText={FirstName => setFN(FirstName)} style = {styles.TxtField} />
-            <Text style = {styles.Txt}>First Name</Text>
-            <TextInput mode='flat' placeholder='Last Name'  onChangeText={LastName => setLN(LastName)} style = {styles.TxtField} />
-            <Text style = {styles.Txt}>Last Name</Text>
-            <TextInput mode='flat' placeholder='Email'  onChangeText={Email => setEmail(Email)} style = {styles.TxtField} />
-            <Text style = {styles.Txt}>Email Address</Text>
-            <TextInput mode='flat' secureTextEntry = {true} placeholder='Password'  onChangeText={Password => setPW(Password)} style = {styles.TxtField} />
-            <Text style = {styles.Txt}>Password</Text>
-            <TextInput mode='flat' secureTextEntry = {true} placeholder='Confirm Password'  onChangeText={ConfirmPassword => setCPW(ConfirmPassword)} style = {styles.TxtField} />
-            <Text style = {styles.Txt}>Confirm Password</Text>
 
-            <Button mode="contained" color='#1bdec4' style ={styles.custombtn} onPress={() => console.log('Pressed')}>
-                 Register
-            </Button> 
-            <Text style = {styles.TxtTwo}>
-            Already have an account?
-             </Text>
-         </View>
-       </PaperProvider>
+       <Formik
+          initialValues={{ firstname: '', lastname: '', email: '', password: '', confpassword: '',}}
+          onSubmit={values => console.log(values)}
+          validationSchema ={RegisterSchema}
+       >
+          {({ handleChange, handleSubmit, errors}) => (
+    <>
+    <PaperProvider>
+    <View style = {styles.LogoContainer}>
+    <Image source ={require ('../Photo_1646216742161.png')} style = {styles.logoimg} />
+     </View>
+    <View style = {styles.RegCon}>
+     <TextInput
+        mode='flat'
+        placeholder='First Name'
+        autoComplete= 'off'
+        onChangeText={handleChange("firstname")}
+        style = {styles.TxtField} />
+     <Text style = {styles.Txt}>{errors.firstname}</Text>
+
+    <TextInput
+        mode='flat'
+        placeholder='Last Name'
+        autoComplete= 'off'
+        onChangeText={handleChange("lastname")} 
+        style = {styles.TxtField} />
+    <Text style = {styles.Txt}>{errors.lastname}</Text>
+    
+    <TextInput 
+        mode='flat' 
+        placeholder='Email'
+        keyboardType='email-address'
+        autoComplete= 'off'  
+        onChangeText={handleChange("email")} 
+        style = {styles.TxtField} />
+    <Text style = {styles.Txt}>{errors.email}</Text>
+
+    <TextInput 
+        mode='flat'
+        autoComplete= 'off' 
+        secureTextEntry 
+        placeholder='Password'  
+        onChangeText={handleChange("password")} 
+        style = {styles.TxtField} />
+    <Text style = {styles.Txt}>{errors.password}</Text>
+
+    <TextInput 
+        mode='flat'
+        autoComplete= 'off' 
+        secureTextEntry 
+        placeholder='Confirm Password'  
+        onChangeText={handleChange("confpassword")} 
+        style = {styles.TxtField} />
+    <Text style = {styles.Txt}>{errors.confpassword}</Text>
+
+    <Button mode="contained" color='#1bdec4' style ={styles.custombtn} onPress={handleSubmit}>
+         Register
+    </Button> 
+    <Text style = {styles.TxtTwo}>
+    Already have an account?
+     </Text>
+ </View>
+</PaperProvider>
+</>
+          )} 
+       </Formik>
+   
     );
 }
 
@@ -64,9 +113,10 @@ const styles = StyleSheet.create({
          width: 300,
      },
      Txt: {
-        fontSize: 13,
+        fontSize: 10,
         fontFamily: 'Roboto',
-        marginBottom: 15,
+        marginBottom: 10,
+        color: 'red',
      },
      custombtn: {
         padding: 5,
